@@ -6,10 +6,7 @@ public class CollectPlayer : MonoBehaviour
 {
     [SerializeField] PLayerMovement pMovement;
 
-    private void Start()
-    {
-        transform.GetComponent<Animator>().SetBool("isRun", false);
-    }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;

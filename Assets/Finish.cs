@@ -6,16 +6,13 @@ using DG.Tweening;
 public class Finish : MonoBehaviour
 {
     [SerializeField] float plusx, plusz, currentX, currentZ;
-    [SerializeField] Road road;
     [SerializeField] PLayerMovement pMovement;
-    bool isUsed = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player") || isUsed) return;
+        if (!other.CompareTag("Player") || GameStatement.Instance.currentState != GameStatement.State.Play) return;
 
-        isUsed = true;
-        road.speed = 0;
+        GameStatement.Instance.FromPLayToFinish();
 
         for (int i = 0; i < pMovement.players.Count; i++)
         {

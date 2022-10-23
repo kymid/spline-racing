@@ -14,7 +14,8 @@ public class PLayerMovement : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             double percent = poseonline + poseonline * i;
-            Debug.Log(comp.EvaluatePosition(percent, SplineComputer.EvaluateMode.Cached));
+            Vector3 finalPos = comp.EvaluatePosition(percent, SplineComputer.EvaluateMode.Cached);
+            if(finalPos != Vector3.zero)
             players[i].transform.DOMove(comp.EvaluatePosition(percent,SplineComputer.EvaluateMode.Cached), 1f).SetSpeedBased();
         }
     }

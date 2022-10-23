@@ -229,7 +229,6 @@ namespace Dreamteck.Splines {
         {
             if (points.Length == 0)
             {
-                Debug.Break();
                 return Vector3.zero;
             }
             Vector3 point = new Vector3();

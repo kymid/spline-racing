@@ -6,7 +6,7 @@
 
     public class Draw : MonoBehaviour
     {
-    [SerializeField] Vector3 offset,scale;
+        [SerializeField] Vector3 offset,scale;
         SplineComputer computer;
         [SerializeField] int spawnDelay, countFrame, pointsCount;
         Camera cam;
@@ -14,8 +14,7 @@
         Vector3 pos;
         [SerializeField]
         GameObject linePrefab, line;
-        [SerializeField] PLayerMovement movement;
-
+        [SerializeField] PLayerMovement movement;   
         bool cancreate;
         void Start()
         {
@@ -45,7 +44,12 @@
                     UpdateRay(hit);
             }       
                 if (Input.GetMouseButtonUp(0))
-                    StartCoroutine(PLayerStanding());
+                {
+                    if (GameStatement.Instance.currentState != GameStatement.State.Finish)
+                        StartCoroutine(PLayerStanding());
+                    else if (line != null)
+                    Destroy(line);
+                }
 
         }
         void CreateRay(RaycastHit hit)
@@ -79,6 +83,15 @@
         
         IEnumerator PLayerStanding()
         {
+            if(GameStatement.Instance.currentState == GameStatement.State.PrePlay)
+            {
+                GameStatement.Instance.FromPrePlayToPlay();
+                foreach (GameObject p in movement.players)
+                {
+                    p.GetComponent<Animator>().SetBool("isRun", true);
+                }
+            }
+ 
             cancreate = false;
             movement.SetPosition(computer);
             yield return new WaitForSeconds(.1f);

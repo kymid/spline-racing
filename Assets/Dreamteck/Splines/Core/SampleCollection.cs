@@ -203,7 +203,6 @@ namespace Dreamteck.Splines
                 Vector3 result = Vector3.Lerp(samples[index].position, samples[index + 1].position, (float)lerp);
                 if (result == Vector3.zero)
                 {
-                    Debug.Break();
                     return new Vector3(Random.Range(-.3f, .3f), 0, Random.Range(-.08f, .17f));
                 }
                 else return result;
